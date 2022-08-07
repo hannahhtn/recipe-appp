@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/recipe-appp/static/css/main.073c9b0a.css",
+    "main.js": "/recipe-appp/static/js/main.85c27e14.js",
+    "static/js/787.13aee4be.chunk.js": "/recipe-appp/static/js/787.13aee4be.chunk.js",
+    "static/media/logo.svg": "/recipe-appp/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/recipe-appp/index.html",
+    "main.073c9b0a.css.map": "/recipe-appp/static/css/main.073c9b0a.css.map",
+    "main.85c27e14.js.map": "/recipe-appp/static/js/main.85c27e14.js.map",
+    "787.13aee4be.chunk.js.map": "/recipe-appp/static/js/787.13aee4be.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.85c27e14.js"
+  ]
+}
