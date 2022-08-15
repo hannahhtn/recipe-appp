@@ -1,12 +1,111 @@
-.container {
-    font-family: 'Signika Negative', sans-serif;
-    padding-top: 1rem;
+body {
+	color: white;
 }
 
-img {
-    width: 20rem;
+h1 {
+	text-align: left;
+	margin: 2rem;
+	color: #dac7a7;
 }
 
-p {
-    text-align: left;
+h2 {
+	text-align: left;
+	margin-bottom: 1rem;
+	color: #dac7a7;
+}
+
+.recipe-container {
+	font-family: "Signika Negative", sans-serif;
+	padding-top: 1rem;
+	padding: 2rem;
+}
+
+.img-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.direction,
+.ingredient {
+	text-align: left;
+}
+
+.direction {
+	list-style: none;
+	padding-left: 1rem;
+}
+
+.direction li {
+	margin-bottom: 1.5rem;
+}
+
+.ingredient li {
+	margin-bottom: 0.5rem;
+}
+
+.ingredients-container,
+.directions-container {
+	margin-top: 3rem;
+}
+
+.meal-list {
+	text-align: center;
+	display: grid;
+	justify-content: center;
+	justify-items: center;
+	row-gap: 2rem;
+}
+
+.img-item-list {
+	height: 10rem;
+	width: 10rem;
+	margin: auto;
+}
+
+.item-url {
+	display: block;
+	text-decoration: none;
+	color: #dac7a7;
+	transition: text-shadow 0.2s, color 0.2s;
+}
+
+.item-url:hover {
+	color: white;
+	text-shadow: 0px 0px 8px white;
+}
+
+@media screen and (min-width: 768px) {
+	.meal-list {
+		text-align: center;
+		display: grid;
+		grid-template-columns: repeat(2, 25rem);
+		justify-content: center;
+		justify-items: center;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	.img-n-ingredients {
+		display: flex;
+		height: 30rem;
+	}
+
+	.img-container {
+		align-items: flex-start;
+	}
+
+	.ingredients-container {
+		margin-top: 0;
+	}
+
+	.ingredient {
+		columns: 2;
+		column-gap: 5rem;
+	}
+
+	.img-item-list {
+		height: 15rem;
+		width: 15rem;
+	}
 }

@@ -1,24 +1,32 @@
 import React from "react";
-import Recipes from "./Recipes";
-import './NavBar.css'
 
-const NavBar = () => {
+// import './NavBar.css'
+
+const NavBar = ({ onSearchKeyWords, onSearchRequest }) => {
 	return (
-		<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-			<div className="container-fluid">
-				<a className="navbar-brand" href="#">
-					Daily Recipe
-				</a>
-				<div className="nav">
-					<a className="nav-link active" aria-current="page" href="#">
-						Random Recipe
-					</a>
-					<a className="nav-link" href="#">
-						Login
-					</a>
+		<div>
+			<nav className="navbar navbar-dark bg-dark">
+				<div className="container-fluid">
+					<a className="navbar-brand">Daily Recipe</a>
+					<form className="d-flex" role="search">
+						<input
+							className="form-control me-2"
+							type="search"
+							placeholder="Search recipe by name"
+							aria-label="Search"
+							onChange={onSearchKeyWords}
+						/>
+						<button
+							className="btn btn-outline-light"
+							type="button"
+							onClick={onSearchRequest}
+						>
+							Search
+						</button>
+					</form>
 				</div>
-			</div>
-		</nav>
+			</nav>
+		</div>
 	);
 };
 

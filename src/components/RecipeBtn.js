@@ -7,9 +7,9 @@ const RecipeBtn = ({ onRecipeRequest }) => {
 			<button
 				onClick={onRecipeRequest}
 				type="button"
-				className="btn btn-outline-primary m-3"
+				className="btn btn-outline-light mt-3"
 			>
-				Get Recipe
+				Random Recipe
 			</button>
 		</div>
 	);
