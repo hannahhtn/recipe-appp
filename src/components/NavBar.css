@@ -1,4 +1,6 @@
-
+.navbar-brand:hover {
+    cursor: pointer;
+}
 .nav-link {
     color: white;
 }

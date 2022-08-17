@@ -11,12 +11,9 @@ import "react-toastify/dist/ReactToastify.css";
 const uuid = require("uuid");
 
 class DailyRecipes extends Recipes {
-	componentDidMount() {
-		this.handleRandomSearchRequest();
-		console.log("111");
-	}
 
 	handleRecipeRequest = () => {
+		this.setState({ pageFirstLoad : false});
 		this.handleRandomSearchRequest();
 	};
 
@@ -42,7 +39,10 @@ class DailyRecipes extends Recipes {
 						this.setState({ meals: [] });
 					}
 				});
+			const keyword = this.state.searchKeyWord;
+			this.setState({ recipeKeyWord: keyword });
 			this.setState({ showListOfMeals: true });
+			this.setState({ pageFirstLoad: false });
 		} else {
 			toast.error("Search field is empty!");
 		}
@@ -94,7 +94,8 @@ class DailyRecipes extends Recipes {
 			recipeIngredients,
 			meals,
 			showListOfMeals,
-			searchKeyWord,
+			recipeKeyWord,
+			pageFirstLoad
 		} = this.state;
 		return (
 			<div>
@@ -104,31 +105,38 @@ class DailyRecipes extends Recipes {
 				/>
 				<ToastContainer />
 				{!showListOfMeals && <h1>{recipeTitle}</h1>}
+				{pageFirstLoad && <h1>Ready for your daily recipe?</h1>}
 				{!showListOfMeals && (
 					<div className="recipe-container">
 						<div className="img-n-ingredients">
 							<div className="img-container">
-								<RecipeImg img={recipeImg} title={recipeTitle} />
+								{!pageFirstLoad && (
+									<RecipeImg img={recipeImg} title={recipeTitle} />
+								)}
 								<RecipeBtn onRecipeRequest={this.handleRecipeRequest} />
 							</div>
-							<div className="ingredients-container">
-								<h2>Ingredients</h2>
-								<Ingredients
-									className="ingredients"
-									ingredients={recipeIngredients}
-								/>
-							</div>
+							{!pageFirstLoad && (
+								<div className="ingredients-container">
+									<h2>Ingredients</h2>
+									<Ingredients
+										className="ingredients"
+										ingredients={recipeIngredients}
+									/>
+								</div>
+							)}
 						</div>
 
-						<div className="directions-container">
-							<h2>Directions</h2>
-							<Directions instructions={recipeInstruction} />
-						</div>
+						{!pageFirstLoad && (
+							<div className="directions-container">
+								<h2>Directions</h2>
+								<Directions instructions={recipeInstruction} />
+							</div>
+						)}
 					</div>
 				)}
 				{showListOfMeals && (
 					<div>
-						<h1>{`${meals.length} meals match the search keyword "${searchKeyWord}"`}</h1>
+						<h1>{`${meals.length} meals match the search keyword "${recipeKeyWord}"`}</h1>
 						<div className="meal-list">
 							{meals.length !== 0 &&
 								meals.map((item) => {

@@ -8,8 +8,10 @@ class Recipes extends Component {
 		recipeInstruction: [],
 		recipeIngredients: [],
 		searchKeyWord: "",
+		recipeKeyWord: "",
 		meals: [],
 		showListOfMeals: false,
+		pageFirstLoad: true
 	};
 
 	handleRandomSearchRequest = () => {
