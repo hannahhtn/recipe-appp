@@ -9,7 +9,7 @@ const RecipeBtn = ({ onRecipeRequest }) => {
 				type="button"
 				className="btn btn-outline-light mt-3"
 			>
-				Random Recipe
+				Get Random Recipe
 			</button>
 		</div>
 	);
