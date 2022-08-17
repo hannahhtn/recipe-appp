@@ -82,6 +82,7 @@ class DailyRecipes extends Recipes {
 				}
 
 				this.setState({ recipeIngredients: ingredients });
+				window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
 			});
 		this.setState({ showListOfMeals: false });
 	};
@@ -146,6 +147,9 @@ class DailyRecipes extends Recipes {
 												src={item.strMealThumb}
 												className="img-thumbnail img-item-list"
 												alt={item.strMeal}
+												onClick={(event) =>
+													this.handleSearchRequestById(event, item.idMeal)
+												}
 											></img>
 											<a
 												className="item-url"
