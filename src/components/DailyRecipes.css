@@ -93,9 +93,9 @@ h2 {
 }
 
 @media screen and (min-width: 1024px) {
-	/* h1 {
+	h1 {
 		text-align: left;
-	} */
+	}
 	.img-n-ingredients {
 		display: flex;
 		height: 30rem;
