@@ -22,7 +22,7 @@ const NavBar = ({ onSearchKeyWords, onSearchRequest }) => {
 							placeholder="Search recipe by name"
 							aria-label="Search"
 							onChange={onSearchKeyWords}
-							autocomplete="on"
+							autoComplete="on"
 						/>
 						<button
 							className="btn btn-outline-light"

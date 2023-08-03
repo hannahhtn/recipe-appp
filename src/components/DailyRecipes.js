@@ -11,9 +11,8 @@ import "react-toastify/dist/ReactToastify.css";
 const uuid = require("uuid");
 
 class DailyRecipes extends Recipes {
-
 	handleRecipeRequest = () => {
-		this.setState({ pageFirstLoad : false});
+		this.setState({ pageFirstLoad: false });
 		this.handleRandomSearchRequest();
 	};
 
@@ -24,21 +23,23 @@ class DailyRecipes extends Recipes {
 	handleSearchRequest = async (event) => {
 		event.preventDefault();
 		if (this.state.searchKeyWord.length !== 0) {
-			fetch(
+			const res = await fetch(
 				`https://www.themealdb.com/api/json/v1/1/search.php?s=${this.state.searchKeyWord}`
-			)
-				.then((res) => {
-					return res.json();
-				})
-				.then((data) => {
-					if (data.meals !== null) {
-						this.setState({ meals: data.meals }, () => {
-							console.log(this.state.meals);
-						});
-					} else {
-						this.setState({ meals: [] });
-					}
+			);
+			
+			if(!res.ok){
+				throw new Error(`HTTP error: ${res.status}`);
+			}
+			const data = await res.json();
+
+			if (data.meals !== null) {
+				this.setState({ meals: data.meals }, () => {
+					console.log(this.state.meals);
 				});
+			} else {
+				this.setState({ meals: [] });
+			}
+
 			const keyword = this.state.searchKeyWord;
 			this.setState({ recipeKeyWord: keyword });
 			this.setState({ showListOfMeals: true });
@@ -48,42 +49,49 @@ class DailyRecipes extends Recipes {
 		}
 	};
 
-	handleSearchRequestById = (e, id) => {
+	handleSearchRequestById = async (e, id) => {
 		e.preventDefault();
-		fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
-			.then((res) => {
-				return res.json();
-			})
-			.then((data) => {
-				this.setState({ recipeTitle: data.meals[0].strMeal });
-				this.setState({ recipeImg: data.meals[0].strMealThumb });
-				this.setState({ recipeID: data.meals[0].idMeal });
-				const array = data.meals[0].strInstructions.split(/\r?\n/);
-				this.setState({
-					recipeInstruction: array,
-				});
+		const res = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
 
-				const ingredients = [];
-				for (const [key, value] of Object.entries(data.meals[0])) {
-					if (key.includes("strMeasure") && value.length !== 0) {
-						// not including empty measurement
-						if (value[0] !== " ") {
-							ingredients.push(value);
-						}
-					}
+		if(!res.ok) {
+			throw new Error(`HTTP error ${res.status}`);
+		}
+		const data = await res.json();
+
+		this.setState({ recipeTitle: data.meals[0].strMeal });
+		this.setState({ recipeImg: data.meals[0].strMealThumb });
+		this.setState({ recipeID: data.meals[0].idMeal });
+		const array = data.meals[0].strInstructions.split(/\r?\n/);
+		this.setState({
+			recipeInstruction: array,
+		});
+
+		const ingredients = [];
+		for (const [key, value] of Object.entries(data.meals[0])) {
+			if (key.includes("strMeasure") && value !== null && value.length !== 0) {
+				// not including empty measurement
+				if (value[0] !== " ") {
+					ingredients.push(value);
 				}
+			}
+		}
 
-				let indx = 0;
-				for (const [key, value] of Object.entries(data.meals[0])) {
-					if (key.includes("strIngredient") && value.length !== 0) {
-						ingredients[indx] += ` ${value}`;
-						indx++;
-					}
-				}
+		let indx = 0;
+		for (const [key, value] of Object.entries(data.meals[0])) {
 
-				this.setState({ recipeIngredients: ingredients });
-				window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-			});
+			if (
+				key.includes("strIngredient") &&
+				value !== null &&
+				value.length !== 0
+			) {
+				ingredients[indx] += ` ${value}`;
+				indx++;
+			}
+		}
+
+		this.setState({ recipeIngredients: ingredients });
+		window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+
 		this.setState({ showListOfMeals: false });
 	};
 
@@ -96,7 +104,7 @@ class DailyRecipes extends Recipes {
 			meals,
 			showListOfMeals,
 			recipeKeyWord,
-			pageFirstLoad
+			pageFirstLoad,
 		} = this.state;
 		return (
 			<div>
